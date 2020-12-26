@@ -1,0 +1,113 @@
+<html>
+	<head>
+		<meta charset=utf-8>
+		<link rel="stylesheet" type="text/css" href="jq/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="jq/jquery-ui.structure.css">
+		<link rel="stylesheet" type="text/css" href="jq/jquery-ui.theme.css">
+		<script src="jquery.js"></script>
+		
+		<script src="jq/jquery-ui.js"></script>
+		
+		<script src="jq.js"></script>
+
+		<script>
+			$(function(){
+			$("#dat").datepicker({
+				
+				dateFormat:"yy-mm-dd",
+				changeMonth: true,
+				changeYear: true
+				
+				});
+			});
+			</script>
+	
+	</head>
+	<body align="center">
+	<form id="for" action='' method="POST"  onsubmit="return form();" >
+		<h1> commander votre table </h1>
+		
+		<p> set formulaire commande une table dans nos resto</p>
+		
+
+			
+			<p> table pour combient de personne</p>
+				
+				<select id="s" >
+					<option value="0">---veuillez choisir---</option>
+					<option value="1">1 place</option>
+					<option value="2">2 places</option>
+					<option value="4">4 places</option>
+					<option value="6">6 places</option>
+				</select>
+		
+		<div id="d1">
+			
+			<img src="img/1.jpg"width="200" height="200" id="im"/>
+		
+		</div>
+		
+		<label>a quelle date vous allez venir ?</label> 
+		
+		<input type="text" id="dat"  name="le_date"/><br/>
+		
+		
+
+		<input type="submit"  value="menu" name="n1" id="m"/><br/><br/>
+		<div id="dat1"></div>
+	</form>
+	<form id="res" action='' method="POST" onsubmit="return reserv();"  >
+			
+			<h1>vos coordonées</h1><br/>
+				
+				Civilité:
+				Madamme<input type="radio" id="ra1" name="r" value="Madamme">
+				Mademoiselle<input type="radio" id="ra2" name="r"value="Mademoiselle">
+				Monsieur<input type="radio" id="ra3" name="r"value="Monsieur"><br/><br/>
+				
+				<label>Nom et prenom</label> <input type="text" id="nom_p" name="nom_p" /><br/><br/>
+				
+				<label>N° de Telephone</label> <input type="text" id="t" name="tele"/> <br/><br/>
+				
+
+				<input type="submit" id="bu" value="reserver"  /><br/><br/>
+			<div id="dres"></div>
+				
+			
+		</form>
+		<div id="d2"></div>
+		
+	    <script>
+			function form(){
+				$.ajax({
+				type:'POST',
+				url:'cot_php.php',
+				data:$('#for').serialize(),
+				success:function(response){
+					$('#dat1').html(response);
+				}
+			});
+			return false ;
+			}
+
+
+			function reserv(){
+				$.ajax({
+			
+				type:'POST',
+				url:'cot_php2.php',
+				data:$('#res').serialize(),
+				success:function(response){
+					$('#dres').html(response);
+				}
+			});
+			return false ;
+			}
+					</script>
+
+	
+	
+	
+	</body>
+
+</html>
